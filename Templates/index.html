@@ -1,0 +1,1506 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+    {% include '_navbar.html' %}
+    <style>
+        /* Body e Root */
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #45a049;
+            --text-color: #ffffff
+        }
+
+        body {
+            font-family: Roboto, sans-serif;
+            line-height: 1.6
+        }
+
+        /* circulo para subir página */
+        .blok:nth-of-type(odd) {
+            background-color: white;
+        }
+
+        .blok:nth-of-type(even) {
+            background-color: black;
+        }
+
+        @-webkit-keyframes border-transform {
+
+            0%,
+            100% {
+                border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+            }
+
+            14% {
+                border-radius: 40% 60% 54% 46% / 49% 60% 40% 51%;
+            }
+
+            28% {
+                border-radius: 54% 46% 38% 62% / 49% 70% 30% 51%;
+            }
+
+            42% {
+                border-radius: 61% 39% 55% 45% / 61% 38% 62% 39%;
+            }
+
+            56% {
+                border-radius: 61% 39% 67% 33% / 70% 50% 50% 30%;
+            }
+
+            70% {
+                border-radius: 50% 50% 34% 66% / 56% 68% 32% 44%;
+            }
+
+            84% {
+                border-radius: 46% 54% 50% 50% / 35% 61% 39% 65%;
+            }
+        }
+
+        .progress-wrap {
+            position: fixed;
+            right: 30px;
+            bottom: 30px;
+            height: 46px;
+            width: 46px;
+            cursor: pointer;
+            display: block;
+            border-radius: 50px;
+            box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px);
+            transition: all 200ms linear;
+        }
+
+        .progress-wrap.active-progress {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .progress-wrap::after,
+        .progress-wrap::before {
+            position: absolute;
+            font-family: 'unicons';
+            content: '\2191';
+            color: #34a3ad;
+            text-align: center;
+            line-height: 46px;
+            font-size: 24px;
+            left: 0;
+            top: 0;
+            height: 46px;
+            width: 46px;
+            cursor: pointer;
+            display: block;
+            z-index: 1;
+            transition: all 200ms linear;
+        }
+
+
+
+        .progress-wrap svg path {
+            fill: none;
+        }
+
+        .progress-wrap svg.progress-circle path {
+            stroke: #00dcff;
+            stroke-width: 4;
+            box-sizing: border-box;
+            transition: all 200ms linear;
+        }
+
+        /* end of circulo para subir pagina */
+
+
+        /* Start of Banner suas vendas */
+
+        #Banner_Section {
+            background-color: #1a1a1a;
+            padding-top: 50px;
+        }
+
+        .imagBanner img {
+            max-width: 100%;
+            filter: drop-shadow(1px 10px 10px)
+        }
+
+        /* Botões */
+        .cta-btn,
+        a:hover {
+            text-decoration: none
+        }
+
+        .cta-btn,
+        .cta-button,
+        a {
+            cursor: pointer
+        }
+
+
+        .cta-btn {
+            display: inline-block;
+            padding: 1em 2em;
+            background-color: var(--primary-color);
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: .3s;
+            margin-bottom: 20px;
+            position: relative
+        }
+
+        .cta-btn,
+        body {
+            color: var(--text-color)
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, .2)
+        }
+
+        .cta-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform .5s;
+            z-index: 0
+        }
+
+        .cta-btn span {
+            position: relative;
+            z-index: 1
+        }
+
+        .cta-btn:hover::before {
+            transform: translate(-50%, -50%) scale(1)
+        }
+
+        .cta-button {
+            background-color: #00ff9d;
+            color: #001a1a;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: background-color .3s
+        }
+
+        .cta-button:hover {
+            background-color: #00cc7a
+        }
+
+        /* Taxas */
+        .pricing-wrap h2,
+        .pricing-wrap h4 {
+            font-family: Poppins, sans-serif;
+            position: relative
+        }
+
+        /* Impulsionar */
+        .cta-btn,
+        .img-2,
+        .over-hide {
+            overflow: hidden
+        }
+
+        .img-1,
+        .img-3 {
+            pointer-events: auto
+        }
+
+        .Eleve_Titulo {
+            font-size: 45px;
+            margin-top: 40px;
+        }
+
+        @media(max-width:845px) {
+            .imagBanner {
+                width: 380px;
+            }
+        }
+
+        @media(max-width:1100px) {
+            .imagBanner {
+                margin-top: 20px;
+            }
+        }
+
+        @media (max-width:1060px) {
+            .Eleve_Titulo {
+                font-size: 30px;
+            }
+        }
+
+
+        @media (max-width: 767px) {
+            .imagBanner {
+                height: 400px;
+                justify-content: center;
+                /* Center horizontally */
+                align-items: center;
+                /* Center vertically */
+                overflow: hidden;
+                /* Prevent overflow if the image is too large */
+            }
+        }
+
+
+        @media (max-width:1060px) {
+            .cta-btn {
+                padding: .6em 2.2em;
+                font-size: .8rem
+            }
+        }
+
+        @media (max-width:923px) {
+            .cta-btn {
+                padding: .6em 1.0em;
+                font-size: .8rem
+            }
+        }
+
+        @media (max-width:800px) {
+            .cta-btn {
+                padding: .7em 0.6em;
+                font-size: .8rem
+            }
+        }
+
+        /* media query */
+        @media (max-width:768px) {
+            .cta-btn {
+                padding: .9em 5.2em;
+                font-size: .8rem
+            }
+
+            .container {
+                flex-direction: column
+            }
+
+        }
+
+        /* media query */
+        @media (max-width:629px) {
+            .cta-btn {
+                padding: .9em 3.2em;
+                font-size: .8rem
+            }
+
+            .container {
+                flex-direction: column
+            }
+
+        }
+
+        @media (max-width:525px) {
+            .cta-btn {
+                padding: .6em 1.9em;
+                font-size: .9rem
+            }
+        }
+
+
+        @media (max-width:497px) {
+            .cta-btn {
+                padding: .6em 1.0em;
+                font-size: .9rem;
+            }
+        }
+
+        @media (max-width:446px) {
+            .cta-btn {
+                padding: .6em 0.5em;
+                font-size: .9rem;
+            }
+        }
+
+        @media (max-width:417px) {
+            .cta-btn {
+                padding: .6em 0.5em;
+                font-size: .8rem;
+            }
+        }
+
+        @media (max-width:387px) {
+            .cta-btn {
+                padding: .6em 0.5em;
+                font-size: .7rem;
+            }
+        }
+
+
+        @media (max-width:358px) {
+            .cta-btn {
+                padding: .6em 0.5em;
+                font-size: .6rem;
+            }
+        }
+
+
+
+
+
+        /* Vantagens */
+        #vantagens {
+            background: url(/static/img/img_49.png) center/cover no-repeat;
+            width: 100%;
+            padding-bottom: 50px;
+        }
+
+        /* Vantagens */
+        #duvidas {
+            background: url(/static/img/img_49.png) center/cover no-repeat;
+            background-position: left;
+            background-color: red;
+        }
+
+
+        h1 {
+            font-size: 2.5em
+        }
+
+        .feature-box {
+            background-color: #002929;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity .5s, transform .5s
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            background-color: #1e576f;
+        }
+
+        .feature-icon {
+            font-size: 1.5em
+        }
+
+        .feature-box.visible {
+            opacity: 1;
+            transform: translateX(0)
+        }
+
+        /* .diagonal-image {
+            height: 400px;
+            transform: skewY(0) skewX(20deg)
+        } */
+
+        a {
+            transition: .2s linear
+        }
+
+        .size-22 {
+            font-size: 22px
+        }
+
+        .full-height {
+            min-height: 100vh
+        }
+
+        [type=checkbox]:checked,
+        [type=checkbox]:not(:checked) {
+            position: absolute;
+            left: -9999px
+        }
+
+        .pricing:checked+label,
+        .pricing:not(:checked)+label {
+            position: relative;
+            display: block;
+            width: 260px;
+            height: 44px;
+            border-radius: 4px;
+            padding: 0 25px;
+            margin: 0 auto;
+            cursor: pointer;
+            font-family: Poppins, sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            line-height: 44px;
+            padding-right: 27px;
+            overflow: hidden;
+            color: #fff;
+            text-align: left
+        }
+
+        .pricing:checked+label:before,
+        .pricing:not(:checked)+label:before {
+            position: absolute;
+            content: '';
+            z-index: -2;
+            background-color: #102770;
+            width: 100%;
+            height: 100%;
+            display: block;
+            top: 0;
+            left: 0
+        }
+
+        .pricing:checked+label:after,
+        .pricing:not(:checked)+label:after {
+            position: absolute;
+            content: '';
+            z-index: -1;
+            background-color: #ffeba7;
+            width: 128px;
+            height: 40px;
+            display: block;
+            top: 2px;
+            left: 2px;
+            border-radius: 2px;
+            transition: left .3s linear
+        }
+
+        .pricing:checked+label:after {
+            left: 130px
+        }
+
+        .block-diff {
+            display: block;
+            mix-blend-mode: difference
+        }
+
+        .card-3d-wrap {
+            position: relative;
+            width: 340px;
+            max-width: calc(100% - 20px);
+            height: 510px;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            margin-top: 90px
+        }
+
+        .card-3d-wrapper,
+        .card-back,
+        .card-front {
+            height: 100%;
+            left: 0;
+            top: 0;
+            -webkit-transform-style: preserve-3d;
+            width: 100%;
+            position: absolute
+        }
+
+        .card-3d-wrapper {
+            transform-style: preserve-3d;
+            transition: transform .7s ease-out .4s
+        }
+
+        .card-back,
+        .card-front {
+            background-color: #fff;
+            border-radius: 6px;
+            transform-style: preserve-3d;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -o-backface-visibility: hidden;
+            backface-visibility: hidden;
+            box-shadow: 0 12px 35px 0 rgba(16, 39, 112, .07)
+        }
+
+        .pricing:checked~.card-3d-wrap .card-3d-wrapper {
+            transform: rotateY(180deg);
+            transition: transform .7s ease-out .4s
+        }
+
+        .pricing-wrap {
+            position: relative;
+            padding-top: 160px;
+            width: 100%;
+            display: block;
+            z-index: 1;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            -webkit-backface-visibility: hidden;
+            -moz-backface-visibility: hidden;
+            -o-backface-visibility: hidden;
+            backface-visibility: hidden
+        }
+
+        .pricing-wrap h4 {
+            width: 100%;
+            display: block;
+            text-align: center;
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 22px;
+            line-height: 1.7;
+            color: #102770;
+            transform: translate3d(0, 0, 35px) perspective(100px)
+        }
+
+        .pricing-wrap h2,
+        .pricing-wrap p {
+            display: block;
+            letter-spacing: 1px;
+            color: #102770;
+            width: 100%
+        }
+
+        .pricing-wrap h4:before {
+            position: absolute;
+            content: '';
+            z-index: -1;
+            background: linear-gradient(217deg, #448ad5, #b8eaf9);
+            width: 70px;
+            height: 70px;
+            display: block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 6px 20px 0 rgba(16, 39, 112, .3);
+            animation: 6s linear infinite border-transform
+        }
+
+        .card-back .pricing-wrap h4:before {
+            background: linear-gradient(217deg, #648946, #a3c984)
+        }
+
+        @keyframes border-transform {
+
+            0%,
+            100% {
+                border-radius: 63% 37% 54% 46%/55% 48% 52% 45%
+            }
+
+            14% {
+                border-radius: 40% 60% 54% 46%/49% 60% 40% 51%
+            }
+
+            28% {
+                border-radius: 54% 46% 38% 62%/49% 70% 30% 51%
+            }
+
+            42% {
+                border-radius: 61% 39% 55% 45%/61% 38% 62% 39%
+            }
+
+            56% {
+                border-radius: 61% 39% 67% 33%/70% 50% 50% 30%
+            }
+
+            70% {
+                border-radius: 50% 50% 34% 66%/56% 68% 32% 44%
+            }
+
+            84% {
+                border-radius: 46% 54% 50% 50%/35% 61% 39% 65%
+            }
+        }
+
+        .pricing-wrap h2 {
+            text-align: center;
+            font-weight: 400;
+            font-size: 36px;
+            line-height: 1.1;
+            transform: translate3d(0, 0, 30px) perspective(100px)
+        }
+
+        .link,
+        .pricing-wrap p {
+            position: relative;
+            text-align: center;
+            font-family: Poppins, sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 1.2;
+            transform: translate3d(0, 0, 30px) perspective(100px)
+        }
+
+        .pricing-wrap h2 sup {
+            font-size: 20px
+        }
+
+        .card-back h2,
+        .card-back h4,
+        .card-back p {
+            color: #0c1c00
+        }
+
+        .link {
+            padding: 10px 20px;
+            border-radius: 4px;
+            display: inline-block;
+            color: #ffeba7;
+            background-color: #102770;
+            transition: .2s linear
+        }
+
+        .img-1,
+        .img-2,
+        .img-3 {
+            position: absolute
+        }
+
+        .img-1,
+        .img-2,
+        .img-3,
+        .img-wrap img {
+            display: block
+        }
+
+        .link:hover {
+            color: #102770;
+            background-color: #ffeba7
+        }
+
+        .card-back .link {
+            background-color: #0c1c00
+        }
+
+        .card-back .link:hover {
+            color: #0c1c00;
+            background-color: #ffeba7
+        }
+
+        .img-wrap img {
+            width: 100%;
+            height: auto
+        }
+
+        .img-1 {
+            left: -160px;
+            top: -50px;
+            z-index: 5;
+            width: calc(80% + 160px);
+            transform: translate3d(0, 0, 45px) perspective(100px);
+            opacity: 1;
+            transition: transform .4s 1.2s, opacity .4s 1.2s
+        }
+
+        .img-2 {
+            left: 0;
+            top: 0;
+            z-index: 1;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            width: 100%;
+            transform: translate3d(0, 0, 15px)
+        }
+
+        .img-3 {
+            right: -20px;
+            top: -40px;
+            z-index: 5;
+            width: calc(60% + 20px);
+            transform: translate3d(0, 0, 55px) perspective(100px) scale(1);
+            opacity: 1;
+            transition: transform .3s 1.3s, opacity .2s 1.3s
+        }
+
+        /* a empresa */
+
+        .branding-section {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container {
+            flex: 1;
+            min-width: 300px;
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+        }
+
+        .overlay-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 100%;
+        }
+
+        .overlay-text h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1;
+        }
+
+        .overlay-text .casual {
+            font-weight: 400;
+            -webkit-text-stroke: 1px #000;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+
+        .branding {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        @media(max-width:1250px) {}
+
+
+        @media (max-width: 768px) {
+            .branding-section {
+                flex-direction: column;
+            }
+
+            .image-container,
+            .content {
+                min-width: 100%;
+            }
+
+            .overlay-text h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* umg aspect ratio */
+
+        @media (max-width: 1550px) {
+            .custom-img {
+                height: 400px;
+                width: auto;
+                /* Maintains aspect ratio */
+            }
+        }
+
+        @media (max-width: 1350px) {
+            .custom-img {
+                height: 360px;
+                width: auto;
+                /* Maintains aspect ratio */
+            }
+        }
+
+        @media (max-width: 1350px) {
+            .custom-img {
+                height: 350px;
+                margin-top: 70px;
+                width: auto;
+                /* Maintains aspect ratio */
+            }
+        }
+
+        @media (max-width: 1250px) {
+            .custom-img {
+                height: 300px;
+                width: auto;
+                /* Maintains aspect ratio */
+            }
+        }
+
+        @media (max-width: 1070px) {
+            .custom-img {
+                height: 260px;
+                margin-top: 130px;
+                width: auto;
+                /* Maintains aspect ratio */
+            }
+        }
+
+        @media (max-width: 890px) {
+            .custom-img {
+                height: 190px;
+                margin-top: 180px;
+                width: auto;
+                /* Maintains aspect ratio */
+            }
+        }
+
+        @media (max-width: 765px) {
+            .custom-img {
+                height: 190px;
+                width: auto;
+                margin-top: -1px;
+                margin-left: 145px;
+                /* Maintains aspect ratio */
+            }
+        }
+
+        @media (max-width: 560px) {
+            .custom-img {
+                display: none;
+                /* Maintains aspect ratio */
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+
+        .manrope-<uniquifier> {
+            font-family: "Manrope", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+        }
+
+        .responsive-section {
+            display: flex;
+            justify-content: center;
+            /* Center the button horizontally */
+            align-items: center;
+            /* Center the button vertically */
+            padding: 20px;
+            /* Add some padding around the section */
+            width: 100%;
+            /* Make sure it takes full width */
+            box-sizing: border-box;
+            /* Include padding in width */
+        }
+
+        .rounded-btn {
+            background-color: #833AB4;
+            color: white;
+            font-size: 14px;
+            border-radius: 50%;
+            padding: 15px;
+            /* Adjust padding for better touch target */
+            display: inline-flex;
+            /* Center icon */
+            justify-content: center;
+            /* Center icon */
+            align-items: center;
+            /* Center icon */
+            transition: background-color 0.3s;
+            /* Smooth background transition */
+        }
+
+        .rounded-btn:hover {
+            background-color: #6f2c91;
+            /* Change color on hover */
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .rounded-btn {
+                padding: 12px;
+                /* Adjust padding for smaller screens */
+                font-size: 12px;
+                /* Adjust font size */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .rounded-btn {
+                padding: 10px;
+                /* Further adjust padding */
+                font-size: 10px;
+                /* Further adjust font size */
+            }
+        }
+    </style>
+    <!-- Banner -->
+    <section id="Banner_Section">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+            <div class="row">
+                <div class="col-md-6 p-4 mt-4">
+                    <h1 class="Eleve_Titulo">Transforme suas vendas e descubra novas oportunidades com a inovação da
+                        Sheepay.
+                    </h1>
+                    <p class="mt-2">Aumente o faturamento do seu e-commerce com mais segurança, agilidade e as melhores
+                        taxas do mercado, proporcionando uma experiência superior aos seus clientes.
+                    </p>
+                    <div class="mt-4 mr-4 text-center"> <a href="#" class="cta-btn ml-4 mt-4"
+                            style="text-decoration: none;">QUERO
+                            VENDER</a> <a href="#" class="cta-btn ml-4 mt-4 bg-warning text-dark"
+                            style="text-decoration: none;">COMECE AGORA</a> </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center">
+                    <div class="imagBanner text-center"> <img src="{% static 'img/img_9_remove.png' %}"
+                            alt="Sheepay Mascot" class="slide-in walk-forward" /> </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section id="planos">
+        <div class="container-fluid p-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mt-4">
+                        <h1 class="display-5 col-md-12 text-dark text-left font-weight-bold text-center"
+                            style="font-family: Manrope;">As taxas ideias para o seu e-commerce </h1>
+                        <p class="text-dark text-center" style="font-family: Manrope;"> Sucesso nas vendas começa com
+                            taxas justas. As melhoras taxas do mercado é aqui na Sheepay. <br> </p>
+                        <div class="mt-2 mb-2 text-center"> <img src="{% static 'img/img_46.png' %}" height="150"
+                                alt="Sheppay">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 text-center mt-4">
+                    <div class="card-3d-wrap my-auto mx-auto">
+                        <div class="card-back mt-2">
+                            <div class="pricing-wrap">
+                                <h4 class="mb-5 mt-5 p-2">Pagamento via Pix </h4>
+                                <h2 class="mb-2">D+0 </h2>
+                                <p class="mb-4"></p>
+                                <p class="mb-1"><i class="uil uil-location-pin-alt size-22"></i></p>
+                                <p class="mb-4"> A partir de 2,99% <sup>Reais</sup> </p> <a href="#0"
+                                    class="link">COMECE
+                                    AGORA</a>
+                                <div class="img-wrap img-2"> <img src="https://assets.codepen.io/1462889/grass.png"
+                                        alt="Sheppay">
+                                </div>
+                                <div class="img-wrap img-3 p-4 ml-4"> <img src="{% static 'img/img_5_remove.png' %}"
+                                        alt="Sheppay">
+                                </div>
+                                <p class="text-success taxasnegociais font-weight-bold p-4"> Taxas negociáveis </p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    @media (max-width: 767px) {
+                        .pricing-wrap {
+                            padding: 4.0rem;
+                        }
+                    }
+                </style>
+
+                <div class="col-md-6 text-center mt-4">
+                    <div class="card-3d-wrap my-auto mx-auto">
+                        <div class="card-front mt-2">
+                            <div class="pricing-wrap ">
+                                <h4 class="mb-5 mt-5 p-2">Cartão de Crédito</h4>
+                                <h2 class="mb-2">D+2</h2>
+                                <p class="mb-4"></p>
+                                <p class="mb-1"><i class="uil uil-location-pin-alt size-22"></i></p>
+                                <p class="mb-4">A partir de 4,99% <sup>Reais</sup> </p> <a href="#0" class="link">COMECE
+                                    AGORA</a>
+                                <div class="img-wrap img-2"> <img src="https://assets.codepen.io/1462889/sea.png"
+                                        alt="Sheppay">
+                                </div>
+                                <div class="img-wrap "> </div>
+                                <div class="img-wrap img-3 ml-4 p-4"> <img src="{% static 'img/img_18_remove.png' %}"
+                                        alt="Sheppay"> </div>
+                                <p class="text-success font-weight-bold p-4"> Taxas negociáveis </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VANTAGENS -->
+    <section id="vantagens">
+        <div class="container-fluid text-center p-4" style="margin-top: -40px;">
+            <div class="container mt-4">
+                <div class="row">
+                    <div class="col-md-12 mt-4 p-4 text-center">
+                        <h1 class="display-6 text-white font-weight-bold text-center mt-4"
+                            style="font-family: Manrope;">
+                            <img class="mr-2" src="{% static 'img/img_8_remove.png' %}" height="80"> <small
+                                class="text-center"> Impulsione suas vendas </small>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-8">
+                    <div class="feature-box">
+                        <div class="feature-icon float-right">💰</div>
+                        <h3>Mais vendas aprovadas</h3>
+                        <p>Nossa plataforma garante uma alta taxa de aprovação de pagamentos, assegurando menos recusas
+                            e mais vendas concluídas..</p>
+
+                    </div>
+                    <div class="feature-box">
+                        <div class="feature-icon float-right">📅</div>
+                        <h3>Saques aos finais de semana</h3>
+                        <p>Disponibilizamos saques de segunda a sábado, incluindo finais de semana, para que você tenha
+                            acesso ao seu dinheiro quando mais precisar..</p>
+                    </div>
+                    <div class="feature-box">
+                        <div class="feature-icon float-right">👤</div>
+                        <h3>Gerente de contas</h3>
+                        <p>Receba suporte personalizado com um gerente de contas dedicado para otimizar suas operações..
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-3 ml-4">
+                    <img class="img-responsive custom-img" height="500" src="{% static 'img/img_6_remove.png' %}"
+                        alt="Sheppay">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SOBRE -->
+    <section id="sobre">
+        <section class="branding-section">
+            <div class="content ">
+                <h1 class="display-6 text-dark font-weight-bold mt-4" style="font-family: Manrope;">
+                    <small class="text-left font-weight-bold">
+                        A Empresa </small>
+                </h1>
+                <p style=" font-size: 1rem;
+                    line-height: 1.6;
+                    color: #333;">Na Sheeppay, acreditamos que simplificar processos é o primeiro passo para
+                    potencializar resultados.
+                    Nossa missão é ajudar empresas a otimizarem suas operações, promovendo
+                    soluções que garantam eficiência e agilidade, sem comprometer a qualidade.
+
+                    Com uma equipe experiente e comprometida, oferecemos ferramentas inovadoras que permitem que
+                    nossos clientes se concentrem no que realmente importa: crescer e se destacar no mercado.
+                    Buscamos constantemente entender as necessidades dos nossos parceiros, adaptando nossas soluções
+                    para proporcionar a melhor experiência possível.
+                </p>
+                <p style=" font-size: 1rem;
+                    line-height: 1.6;
+                    color: #333;">
+                    Acreditamos que menos é mais. Ao eliminar complexidades desnecessárias, facilitamos o dia a dia
+                    das empresas, permitindo que elas alcancem seus objetivos com mais facilidade e rapidez.
+                    Junte-se a nós e descubra como podemos transformar o seu negócio!</p>
+            </div>
+            <div class="image-container text-center">
+                <img src="{% static 'img/img_2.png' %}" alt="Sheppay">
+                <div class="overlay-text">
+                    <br>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    DUVIDAS
+    <section id="duvidas" style="padding-top: 40px;padding-bottom: 60px;">
+        <div class="container mt-4 p-4 ">
+            <h1 class="display-6 col-md-12 text-center font-weight-bold mb-4 text-white" style="font-family: Manrope;">
+                Perguntas Frequentes </h1>
+        </div>
+        <div class="container text-center d-flex justify-content-center">
+            <div class="accordion">
+                <!-- pergunta 1-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        A Sheeppay possui outras cobranças além das taxas já informadas?
+                        <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner" style="font-size: 12px;">
+                            Não, na Sheeppay, nos comprometemos com a transparência total para nossos clientes. As taxas
+                            que apresentamos para Pix, antecipação via Pix, cartão de crédito e antecipação de cartão de
+                            crédito são as únicas que aplicamos. Não há custos adicionais escondidos. Com a Sheeppay,
+                            você pode confiar que está pagando apenas o que foi claramente informado, sem surpresas
+                            inesperadas.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pergunta 2-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        O que garante à Sheeppay a melhor taxa de conversão do mercado?
+                        <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner" style="font-size: 12px;">
+                            Nossa plataforma se destaca por uma interface amigável que torna a navegação e a realização
+                            de transações muito mais fáceis. Além disso, o processamento ágil de pagamentos assegura uma
+                            experiência fluida e eficiente para seus clientes. Nossas taxas competitivas foram
+                            elaboradas para maximizar seu lucro, ajudando a impulsionar ainda mais suas conversões.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pergunta 3-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Quais tipos de pagamentos a Sheeppay aceita?
+                        <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner" style="font-size: 12px;">
+                            Você pode contar com a Sheeppay para processar pagamentos de forma eficiente via Pix e
+                            cartão de crédito, sempre com total transparência.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pergunta 4-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Qual é a taxa de processamento para pagamentos feitos por Pix?
+                        <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner" style="font-size: 12px;">
+                            Disponibilizamos uma taxa de processamento bastante competitiva para transações via Pix.
+                            Para mais informações, consulte nosso site.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pergunta 5-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Como são aplicadas as taxas de antecipação?
+                        <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner" style="font-size: 12px;">
+                            Oferecemos um processo de antecipação claro e descomplicado. Para antecipar seus pagamentos,
+                            aplicamos uma taxa fixa de 5% para transações via Pix e 10% para transações com cartão de
+                            crédito. Essas taxas são comunicadas de forma transparente, assegurando que você tenha total
+                            visibilidade sobre os custos associados à antecipação de suas transações.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pergunta 6-->
+                <div class="accordion-item">
+                    <div class="accordion-header">
+                        Qual é a taxa aplicada para pagamentos com cartão de crédito?
+                        <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 5V19M5 12H19" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-content-inner" style="font-size: 12px;">
+                            Essa taxa é de 6,99% do valor da transação. Além disso, asseguramos a liberação do pagamento
+                            em até dois dias úteis, garantindo uma experiência rápida e eficiente para você. </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- circulo para subir pagina -->
+    <div class="">
+        <div class="progress-wrap"> <svg class="progress-circle svg-content" xmlns="http://www.w3.org/2000/svg"
+                width="100%" height="100%" viewBox="-1 -1 102 102">
+                <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+            </svg> </div>
+    </div>
+    <div class="">
+        <div class='cursor' id="cursor"></div>
+        <div class='cursor2' id="cursor2"></div>
+        <div class='cursor3' id="cursor3"></div>
+    </div>
+    <style>
+        /* #Cursor
+================================================== */
+        .cursor,
+        .cursor2,
+        .cursor3 {
+            position: fixed;
+            border-radius: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            pointer-events: none;
+            left: -100px;
+            top: 50%;
+            z-index: 4;
+        }
+
+        .cursor {
+            background-color: var(--blue);
+            height: 0;
+            width: 0;
+        }
+
+        .cursor2,
+        .cursor3 {
+            height: 50px;
+            width: 50px;
+            transition: all 200ms ease-out;
+            background-position: center;
+            background-size: 0 0;
+        }
+
+        .cursor2.hover,
+        .cursor3.hover {
+            height: 220px;
+            width: 320px;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .cursor2 {
+            border: 2px solid var(--blue);
+            box-shadow: 0 0 12px rgba(16, 39, 112, 0.2);
+        }
+
+        .cursor2.hover {
+            background-size: cover;
+            box-shadow: 0 0 0 rgba(16, 39, 112, 0.2);
+        }
+
+        /* #End of Cursor
+================================================== */
+
+
+
+        /* #Accordition
+================================================== */
+
+        .accordion {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .accordion-item {
+            background-color: #1c2333;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .accordion-header {
+            background-color: #1c2333;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #2d374b;
+            border-radius: 8px;
+        }
+
+        .accordion-header:hover {
+            background-color: #2d374b;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            background-color: #1c2333;
+            color: #a0aec0;
+            border: 1px solid #2d374b;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .accordion-content-inner {
+            padding: 18px;
+        }
+
+        .accordion-icon {
+            width: 24px;
+            height: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.active .accordion-icon {
+            transform: rotate(45deg);
+        }
+
+        /* #End of Accordition
+================================================== */
+    </style>
+    <script>
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const accordionItem = button.parentNode;
+                const content = accordionItem.querySelector('.accordion-content');
+
+                accordionItem.classList.toggle('active');
+
+                if (accordionItem.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = 0;
+                }
+            });
+        });
+    </script>
+    <script>
+
+        document.getElementsByTagName("body")[0].addEventListener("mousemove", function (n) {
+            t.style.left = n.clientX + "px",
+                t.style.top = n.clientY + "px",
+                e.style.left = n.clientX + "px",
+                e.style.top = n.clientY + "px",
+                i.style.left = n.clientX + "px",
+                i.style.top = n.clientY + "px"
+        });
+        var t = document.getElementById("cursor"),
+            e = document.getElementById("cursor2"),
+            i = document.getElementById("cursor3");
+        function n(t) {
+            e.classList.add("hover", "hover-2"), i.classList.add("hover", "hover-2")
+        }
+        function s(t) {
+            e.classList.remove("hover", "hover-2"), i.classList.remove("hover", "hover-2")
+        }
+        s();
+        for (var r = document.querySelectorAll(".hover-target, .hover-target-2"), a = r.length - 1; a >= 0; a--) {
+            o(r[a])
+        }
+        function o(t) {
+            t.addEventListener("mouseover", n), t.addEventListener("mouseout", s)
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var hoverLink = document.querySelector('.logo');
+            var bodychange = document.querySelector('body');
+
+            hoverLink.addEventListener('mouseenter', function (e) {
+                bodychange.classList.add('logo-wrap');
+            });
+            hoverLink.addEventListener('mouseleave', function () {
+                bodychange.classList.remove('logo-wrap');
+            })
+        })
+        document.addEventListener('DOMContentLoaded', function () {
+            var hoverLink = document.querySelector('.img-1');
+            var bodychange = document.querySelector('body');
+
+            hoverLink.addEventListener('mouseenter', function (e) {
+                bodychange.classList.add('img-1-wrap');
+            });
+            hoverLink.addEventListener('mouseleave', function () {
+                bodychange.classList.remove('img-1-wrap');
+            })
+        })
+        document.addEventListener('DOMContentLoaded', function () {
+            var hoverLink = document.querySelector('.img-2');
+            var bodychange = document.querySelector('body');
+
+            hoverLink.addEventListener('mouseenter', function (e) {
+                bodychange.classList.add('img-2-wrap');
+            });
+            hoverLink.addEventListener('mouseleave', function () {
+                bodychange.classList.remove('img-2-wrap');
+            })
+        })
+        document.addEventListener('DOMContentLoaded', function () {
+            var hoverLink = document.querySelector('.img-3');
+            var bodychange = document.querySelector('body');
+
+            hoverLink.addEventListener('mouseenter', function (e) {
+                bodychange.classList.add('img-3-wrap');
+            });
+            hoverLink.addEventListener('mouseleave', function () {
+                bodychange.classList.remove('img-3-wrap');
+            })
+        })
+        document.addEventListener('DOMContentLoaded', function () {
+            var hoverLink = document.querySelector('.img-4');
+            var bodychange = document.querySelector('body');
+
+            hoverLink.addEventListener('mouseenter', function (e) {
+                bodychange.classList.add('img-4-wrap');
+            });
+            hoverLink.addEventListener('mouseleave', function () {
+                bodychange.classList.remove('img-4-wrap');
+            })
+        })
+    </script>
+    <script>
+        /* slides inpulsione  */
+        document.addEventListener("DOMContentLoaded", function () {
+            const boxes = document.querySelectorAll('.feature-box');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target); // Para não observar novamente
+                    }
+                });
+            });
+            boxes.forEach(box => {
+                observer.observe(box); // Observa cada box
+            });
+        });
+    </script>
+    <!-- circulo para subir pagina -->
+    <script>
+        (function ($) {
+            "use strict";
+
+            $(document).ready(function () {
+                var progressPath = document.querySelector('.progress-wrap path');
+                var pathLength = progressPath.getTotalLength();
+                progressPath.style.transition = 'none';
+                progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+                progressPath.style.strokeDashoffset = pathLength;
+                progressPath.getBoundingClientRect();
+                progressPath.style.transition = 'stroke-dashoffset 10ms linear';
+
+                var updateProgress = function () {
+                    var scroll = $(window).scrollTop();
+                    var height = $(document).height() - $(window).height();
+                    var progress = pathLength - (scroll * pathLength / height);
+                    progressPath.style.strokeDashoffset = progress;
+                }
+
+                updateProgress();
+                $(window).scroll(updateProgress);
+
+                var offset = 50;
+                var duration = 550;
+                $(window).on('scroll', function () {
+                    if ($(this).scrollTop() > offset) {
+                        $('.progress-wrap').addClass('active-progress');
+                    } else {
+                        $('.progress-wrap').removeClass('active-progress');
+                    }
+                });
+
+                $('.progress-wrap').on('click', function (event) {
+                    event.preventDefault();
+                    $('html, body').animate({ scrollTop: 0 }, duration);
+                    return false;
+                });
+            });
+
+        })(jQuery);
+    </script>
+</body>
+{% include '_footer.html' %} {% endblock %}

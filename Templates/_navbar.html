@@ -1,0 +1,176 @@
+{% load static %}
+<style>
+    /* Estilos existentes */
+    .button-33 {
+        background-color: #c2fbd7;
+        border-radius: 100px;
+        box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset, rgba(44, 187, 99, .15) 0 1px 2px, rgba(44, 187, 99, .15) 0 2px 4px, rgba(44, 187, 99, .15) 0 4px 8px, rgba(44, 187, 99, .15) 0 8px 16px, rgba(44, 187, 99, .15) 0 16px 32px;
+        background-color: #4CAF50;
+        color: #fff;
+
+        cursor: pointer;
+        display: inline-block;
+        font-family: Arial, sans-serif;
+        padding: 7px 20px;
+        text-align: center;
+        text-decoration: none;
+        transition: all 250ms;
+        border: 0;
+        font-size: 16px;
+        user-select: none;
+    }
+
+    .button-33:hover {
+        box-shadow: rgba(44, 187, 99, .35) 0 -25px 18px -14px inset, rgba(44, 187, 99, .25) 0 1px 2px, rgba(44, 187, 99, .25) 0 2px 4px, rgba(44, 187, 99, .25) 0 4px 8px, rgba(44, 187, 99, .25) 0 8px 16px, rgba(44, 187, 99, .25) 0 16px 32px;
+        transform: scale(1.05) rotate(-1deg);
+    }
+
+    .logo img {
+        height: 60px;
+    }
+
+    .container-fluid {
+        /* 2s duration, ease timing function, infinite loop */
+        position: relative;
+    }
+    .bounce {
+        animation: bounce 3s ease;
+    }
+    .menu {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 3px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50px;
+        width: 80%;
+        /* Changed to 80% for smaller screens */
+        max-width: 1200px;
+        margin: 0 auto;
+        font-size: 14px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease;
+    }
+
+
+    .menu-items {
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu-items a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .menu-items a:hover {
+        color: #00a86b;
+    }
+
+    .mobile-toggle {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 30px;
+        cursor: pointer;
+    }
+
+    /* Novos estilos para o menu móvel COR */
+    .mobile-menu {
+        display: none;
+        /* Começa oculta */
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background-color: #f7eded;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        z-index: 999;
+    }
+
+    .mobile-menu a {
+        color: #000000;
+        text-decoration: none;
+        font-size: 18px;
+        margin: 10px 0;
+        transition: color 0.3s ease;
+    }
+
+    .mobile-menu a:hover,
+    .mobile-menu a:focus {
+        color: #00a86b;
+    }
+
+    .mobile-menu .button-33 {
+        margin-top: 20px;
+    }
+
+    @media (max-width:800px) {
+        .menu-items {
+            font-size: 12px;
+        }
+    }
+
+    /* Media query para dispositivos móveis */
+    @media (max-width: 768px) {
+
+        .menu-items,
+        .auth-buttons {
+            display: none;
+        }
+
+        .mobile-toggle {
+            display: block;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+    }
+</style>
+
+<div class="container-fluid bounce">
+    <nav class="menu">
+        <div class="logo">
+            <a href="{% url 'index' %}" class="href">
+                <img src="{% static 'img/img_40.png' %}" alt="Logo">
+            </a>
+        </div>
+        <div class="menu-items">
+            <a href="#vantagens">Benefícios</a>
+            <a href="#planos">Taxas</a>
+            <a href="#sobre">Sobre nós</a>
+            <a href="#">Dúvidas</a>
+        </div>
+        <div class="auth-buttons">
+            <a href="https://app.sheeppay.net/auth/login" class="href">
+                <button class="button-33 font-weight-bold" role="button">Login</button>
+            </a>
+        </div>
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+    </nav>
+
+    <div class="mobile-menu">
+        <a href="#">Benefícios</a>
+        <a href="#">Taxas</a>
+        <a href="#">Sobre nós</a>
+        <a href="#">Dúvidas</a>
+        <button class="button-33 " role="button">Login</button>
+    </div>
+</div>
+
+<script>
+    function toggleMenu() {
+        const mobileMenu = document.querySelector('.mobile-menu');
+        mobileMenu.classList.toggle('active'); // Adiciona ou remove a classe active
+    }
+</script>
